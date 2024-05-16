@@ -1,16 +1,8 @@
-# Set the "fish_vcs_prompt"
 function fish_prompt --description "it comes from 'disco' and 'astronaut' "
-    set -g __fish_git_prompt_showdirtystate 1
-    set -g __fish_git_prompt_showuntrackedfiles 1
-    set -g __fish_git_prompt_showupstream informative
-    set -g __fish_git_prompt_showcolorhints 1
-    set -g __fish_git_prompt_use_informative_chars 1
-
     set -l last_status $status
     set -l normal (set_color normal)
     set -l status_color (set_color brgreen)
     set -l cwd_color (set_color $fish_color_cwd)
-    set -l vcs_color (set_color brpurple)
     set -l prompt_status ""
 
     set -l suffix '>'
@@ -29,11 +21,6 @@ function fish_prompt --description "it comes from 'disco' and 'astronaut' "
     and set -g __fish_git_prompt_char_dirtystate \U1F4a9
     set -g __fish_git_prompt_char_untrackedfiles "?"
 
-
-    # The git prompt's default format is ' (%s)'.
-    set -l vcs (fish_vcs_prompt "$(set_color -o white)( %s $(set_color -o white))" 2>/dev/null)
-
-
     # Since we display the prompt on a new line allow the directory names to be longer.
     set -q fish_prompt_pwd_dir_length
     or set -lx fish_prompt_pwd_dir_length 0
@@ -47,8 +34,7 @@ function fish_prompt --description "it comes from 'disco' and 'astronaut' "
         set suffix '#'
     end
 
-    
-    echo -s (prompt_login) ' ' $cwd_color (prompt_pwd) ' ' $vcs $normal ' ' $prompt_status
+    echo -s (prompt_login) ' ' $cwd_color (prompt_pwd) ' ' $normal ' ' $prompt_status
     echo -n -s $status_color $suffix ' ' $normal
 end
 
